@@ -1,13 +1,19 @@
+sudo: required
+dist: trusty
 language: node_js
 node_js:
   - '6'
 addons:
-  firefox: "50.1.0"
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 before_script:
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
-  - mkdir geckodriver
-  - tar -xzf geckodriver-v0.11.1-linux64.tar.gz -C geckodriver
-  - export PATH=$PATH:$PWD/geckodriver
+  - wget http://chromedriver.storage.googleapis.com/2.27/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip
+  - sudo mv chromedriver /usr/local/bin
+  - sudo chmod a+x /usr/local/bin/chromedriver
 install:
   - npm install selenium-webdriver@^3.0.0
   - npm install
